@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <style>
+    .chat-content { height: 350px;  overflow-y: scroll }
+    .line { margin-top: 15px; display: flex }
+    .chat-box { background: #eee; padding: 5px;
+      max-width: 200px }
+    .mine { margin-left: auto }
+  </style>
+
+  <div class="chat-content">
+    <div class="line">
+      <span class="chat-box">안녕?</span>
+    </div>
+    <div class="line">
+      <span class="chat-box mine">안녕?</span>
+    </div>
+  </div>
+  <input class="chat-box" id="input">
+  <button id="send">전송</button>
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.3/dist/axios.min.js"></script>
+
+  <script type="module">
+
+    document.querySelector('#send').addEventListener('click', function(){
+
+      let template1 = `<div class="line">
+        <div class="chat-box mine">
+          ${document.querySelector('#input').value}
+        </div>
+      </div>`;
+      document.querySelector('.chat-content').insertAdjacentHTML('beforeend',  template1);
+
+
+      let q = 'http://localhost:3000/translate?q=' + document.querySelector('#input').value;
+      axios.get(q).then(r => {
+
+        var 결과 = JSON.parse(r.data).message.result.translatedText;
+        console.log(결과);
+
+        let template2 = `<div class="line">
+          <div class="chat-box">${결과}</div>
+        </div>`;
+        document.querySelector('.chat-content').insertAdjacentHTML('beforeend', template2);
+      }).catch((error)=>{console.log('실패',error)})
+      
+
+
+    });
+
+   
+
+  </script>
+
+</body>
+
+</html>
