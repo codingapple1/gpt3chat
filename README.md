@@ -1,5 +1,7 @@
 # gpt3chat
 
+(업데이트) GPT3.5, 4 API가 나온 이상 이제 번역같은거 필요 없습니다
+
 openai API key & 네이버 개발자센터에서 발급받은 파파고 Client ID/Secret 키 입력필요
 
 
